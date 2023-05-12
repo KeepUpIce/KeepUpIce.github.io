@@ -1,0 +1,476 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>PHP-phpstudy留言板项目搭建教程及报错详析 | 等风来</title><meta name="author" content="秋"><meta name="copyright" content="秋"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="基础知识及工具准备基础知识：四种语言PHPPHP是在服务器端执行的脚本语言，适用于Web开发并可嵌入HTML中。学习网站：PHP教程 | 菜鸟教程 SQLSQL是一种数据库查询和程序设计语言，用于存取数据以及查询、更新和管理关系数据库系统。该留言板项目后端逻辑主要由PHP及SQL实现，读者掌握SQL增删改查语句即可。学习网站：SQL教程 | 菜鸟教程 HTMLHTML是一种标记语言，它通过一系列标">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP-phpstudy留言板项目搭建教程及报错详析">
+<meta property="og:url" content="http://example.com/2023/05/12/PHP-phpstudy%E7%95%99%E8%A8%80%E6%9D%BF%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B%E5%8F%8A%E6%8A%A5%E9%94%99%E8%AF%A6%E6%9E%90/index.html">
+<meta property="og:site_name" content="等风来">
+<meta property="og:description" content="基础知识及工具准备基础知识：四种语言PHPPHP是在服务器端执行的脚本语言，适用于Web开发并可嵌入HTML中。学习网站：PHP教程 | 菜鸟教程 SQLSQL是一种数据库查询和程序设计语言，用于存取数据以及查询、更新和管理关系数据库系统。该留言板项目后端逻辑主要由PHP及SQL实现，读者掌握SQL增删改查语句即可。学习网站：SQL教程 | 菜鸟教程 HTMLHTML是一种标记语言，它通过一系列标">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2023-05-12T13:27:02.000Z">
+<meta property="article:modified_time" content="2023-05-12T13:33:59.255Z">
+<meta property="article:author" content="秋">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/05/12/PHP-phpstudy%E7%95%99%E8%A8%80%E6%9D%BF%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B%E5%8F%8A%E6%8A%A5%E9%94%99%E8%AF%A6%E6%9E%90/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'PHP-phpstudy留言板项目搭建教程及报错详析',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-05-12 21:33:59'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="等风来"><span class="site-name">等风来</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">PHP-phpstudy留言板项目搭建教程及报错详析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-05-12T13:27:02.000Z" title="发表于 2023-05-12 21:27:02">2023-05-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-05-12T13:33:59.255Z" title="更新于 2023-05-12 21:33:59">2023-05-12</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="PHP-phpstudy留言板项目搭建教程及报错详析"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="基础知识及工具准备"><a href="#基础知识及工具准备" class="headerlink" title="基础知识及工具准备"></a>基础知识及工具准备</h1><h2 id="基础知识：四种语言"><a href="#基础知识：四种语言" class="headerlink" title="基础知识：四种语言"></a>基础知识：四种语言</h2><h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><p>PHP是在服务器端执行的脚本语言，适用于Web开发并可嵌入HTML中。<br>学习网站：<a target="_blank" rel="noopener" href="https://www.runoob.com/php/php-tutorial.html">PHP教程 | 菜鸟教程</a></p>
+<h3 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h3><p>SQL是一种数据库查询和程序设计语言，用于存取数据以及查询、更新和管理关系数据库系统。<br>该留言板项目后端逻辑主要由PHP及SQL实现，读者掌握SQL增删改查语句即可。<br>学习网站：<a target="_blank" rel="noopener" href="https://www.runoob.com/sql/sql-tutorial.html">SQL教程 | 菜鸟教程</a></p>
+<h3 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h3><p>HTML是一种标记语言，它通过一系列标签可以将网络上的文档格式统一，使分散的Internet资源连接为一个逻辑整体。<br>CSS语言常嵌入HTML中，为HTML文档添加样式。<strong>为突出本文的目的性，此项目不再添加CSS语言</strong>。读者可自行探索学习。<br>HTML学习网站：<a target="_blank" rel="noopener" href="https://www.runoob.com/html/html-tutorial.html">HTML教程 | 菜鸟教程</a><br>CSS学习网站：<a target="_blank" rel="noopener" href="https://www.runoob.com/css/css-tutorial.html">CSS教程 | 菜鸟教程</a></p>
+<h3 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h3><p>留言板是一个Web项目。HTML 定义了网页的内容，CSS 描述了网页的布局，而JavaScript 控制了网页的行为。<strong>此项目运用Javascript实现弹出对话框以回显注册、登录、留言进程。</strong><br>JavaScript学习网站：<a target="_blank" rel="noopener" href="https://www.runoob.com/js/js-tutorial.html">JavaScript教程 | 菜鸟教程</a></p>
+<h2 id="工具准备：Vscode"><a href="#工具准备：Vscode" class="headerlink" title="工具准备：Vscode"></a>工具准备：Vscode</h2><p>常用的PHP开发工具有PhpStorm、SublimeText、Zend Studio、Vscode等，本文使用Vscode进行实例分析。<br>官网安装地址：<a target="_blank" rel="noopener" href="https://code.visualstudio.com/">Visual Studio Code</a><br>官方文档地址：<a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs">Vscode Docs</a><br>Vscode教程：<a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/vscode-tutorial.html?ivk_sa=1025883i">Vscode教程 | 菜鸟教程</a></p>
+<h2 id="工具准备：PhpStudy"><a href="#工具准备：PhpStudy" class="headerlink" title="工具准备：PhpStudy"></a>工具准备：PhpStudy</h2><p>PhpStudy是一个PHP调试环境的程序集成包，集成最新的Apache、PHP、MySQL、phpMyAdmin、ZendOptimizer，安装后无须配置即可使用。<br>官网安装地址：<a target="_blank" rel="noopener" href="https://www.xp.cn/">PhpStudy Download</a></p>
+<h3 id="配置PHP环境"><a href="#配置PHP环境" class="headerlink" title="配置PHP环境"></a>配置PHP环境</h3><ol>
+<li><p>打开PhpStudy，启动<strong>WAMP</strong><br><img src="D:/Software/Hexo/themes/butterfly/source/img/2da6aa5939f74651a7f073753d991382.png" alt="启动WAMP"></p>
+</li>
+<li><p>点击左侧栏中的<strong>软件管理</strong>，安装一个较高版本的PHP<br><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133443.png" alt="安装PHP"></p>
+</li>
+<li><p>安装完成后进入右侧的<strong>设置</strong>，进入<strong>扩展组件</strong>页面，打开<strong>XDebug调试组件</strong>，并记下<strong>端口</strong><br><img src="https://img-blog.csdnimg.cn/17d946a132a64db189a01c6eda23e258.png#pic_center" alt="PHP设置"></p>
+</li>
+<li><p>点击左侧的<strong>网站</strong>，点击右侧<strong>管理</strong>，再<strong>打开根目录</strong>，接着<strong>返回上一级文件夹</strong>，<strong>打开Extensions文件夹</strong>，进入<strong>php文件夹</strong>，再进入<strong>安装的php所对应的文件夹</strong>，找到<strong>php.exe</strong>，记住<strong>该php.exe的路径</strong><img src="https://img-blog.csdnimg.cn/d5872f527c1f413b81fd49f4eb95dcb0.png#pic_center" alt="PHP根目录"><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133280.png" alt="php.exe"></p>
+</li>
+<li><p>点击<strong>设置</strong>，<strong>搜索PHP</strong>，点击<strong>在settings.json中编辑</strong><br><img src="https://img-blog.csdnimg.cn/044c6854aa3c485595da91682ee3af5a.png#pic_center" alt="settings.json">在{}中添加如下代码并保存    <strong>注意</strong>：路径的<code>\</code>应替换为<code>/</code></p>
+</li>
+</ol>
+<pre><code class="php">    &quot;php.validate.executablePath&quot;:  &quot;php.exe的路径&quot;,
+
+    &quot;php.executablePath&quot;: &quot;php.exe的路径&quot;,   
+
+   例如
+   &quot;php.validate.executablePath&quot;:  &quot;D:/Software/PhpStudy/Extensions/php/php7.3.4nts/php.exe&quot;,
+   &quot;php.executablePath&quot;: &quot;D:/Software/PhpStud/Extensions/php/php7.3.4nts/php.exe&quot;,
+</code></pre>
+<ol start="6">
+<li>点击<strong>此电脑</strong>，右键打开<strong>属性</strong>，依次点击<strong>高级系统设置</strong>、<strong>环境变量</strong>，双击打开<strong>系统变量中的Path</strong>，点击<strong>新建</strong>，输入<strong>php.exe所在文件夹的路径</strong>，点击<strong>确定</strong>。<br><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133210.png" alt="系统变量Path"><br>路径举例：<code>D:\Software\PHPStudy\phpstudy_pro\Extensions\php\php7.4.3nts</code><br><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133274.png" alt="路径"></li>
+<li>创建一个PHP文件，检验环境是否配置成功。<br>代码如下：</li>
+</ol>
+<pre><code class="php">&lt;?php
+echo&quot;秋说&quot;;
+?&gt;
+</code></pre>
+<p>依次点击<strong>命令中心</strong>、<strong>运行</strong>、<strong>启动调试</strong><br><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133805.png" alt="环境配置">若下方的调试控制台回显<code>秋说</code>，则说明PHP环境搭建成功。<br>环境搭建过程中若存在问题，可自行使用Google、百度寻找解决方案或在评论区留言。</p>
+<h1 id="项目搭建"><a href="#项目搭建" class="headerlink" title="项目搭建"></a>项目搭建</h1><h2 id="留言板功能模块"><a href="#留言板功能模块" class="headerlink" title="留言板功能模块"></a>留言板功能模块</h2><p>注册功能：实现用户注册及注册验证<br>登录功能：实现用户登录及登录验证<br>留言功能：实现用户名、留言内容、留言时间在页面的输出<br>登出功能：实现用户的登出 服务器端清除登录信息<br>管理功能：实现数据的增删改查</p>
+<h2 id="注册功能前端"><a href="#注册功能前端" class="headerlink" title="注册功能前端"></a>注册功能前端</h2><p>大体框架：<strong>用户名栏</strong> <strong>密码栏</strong> <strong>注册按钮</strong> <strong>登录页面超链接</strong><br><code>本文采用形式简单的前端页面以简化代码、降低阅读难度，读者可自行优化前端页面或采用前端框架。</code><br><strong>打开phpstudy&#x2F;WWW文件夹，新建registerfront.php</strong>，代码如下：</p>
+<pre><code class="php">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;用户注册&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div&gt;
+&lt;h1&gt;用户注册&lt;/h1&gt; 
+&lt;form  action=&quot;registerend.php&quot; method=&quot;post&quot; onsubmit=&quot;return check()&quot;&gt;   &lt;!--当用户离开输入字段时执行JavaScript--&gt;
+        用户名:&lt;input type=&quot;text&quot; name=&quot;name&quot;&gt;  
+        &lt;br&gt;&lt;br&gt;
+        密码:&lt;input type=&quot;password&quot; name=&quot;pass&quot;&gt;
+        &lt;br&gt;&lt;br&gt;
+        &lt;input type=&quot;submit&quot; value=&quot;提交&quot;&gt;
+        &lt;br&gt;&lt;br&gt;
+        &lt;a href=&quot;loginfront.php&quot;&gt;登录页面&lt;/a&gt;
+        &lt;/form&gt;
+    
+    &lt;script&gt;
+    function check()//用户验证
+    &#123;
+        let name = document.getElementsByName(&#39;name&#39;)[0].value.trim();
+        let pass = document.getElementsByName(&#39;pass&#39;)[0].value.trim();
+        let nameReg = /^[a-zA-Z0-9\u2E80-\uF999]&#123;1,20&#125;$/;
+        if(!nameReg.test(name))//检测name是否匹配nameReg
+        &#123;
+            alert(&#39;用户名不能出现特殊字符！&#39;);
+            return false;
+        &#125;
+        let passreg = /^[a-zA-Z0-9]&#123;6,20&#125;$/;
+        if(!passreg.test(pass))
+        &#123;
+            alert(&#39;密码不能出现特殊字符，且不得少于六位数！&#39;); 
+            return false;&#125;
+        return true;   &#125;
+&lt;/script&gt;
+    &lt;/div&gt;
+        &lt;/body&gt;
+            &lt;/html&gt;
+</code></pre>
+<h3 id="实现页面打开功能：-Open-PHP-x2F-HTML-x2F-JS-In-Browser"><a href="#实现页面打开功能：-Open-PHP-x2F-HTML-x2F-JS-In-Browser" class="headerlink" title="实现页面打开功能： Open PHP&#x2F;HTML&#x2F;JS In Browser"></a>实现页面打开功能： Open PHP&#x2F;HTML&#x2F;JS In Browser</h3><ol>
+<li><p>在Vscode中搜索、安装扩展<strong>Open PHP&#x2F;HTML&#x2F;JS In Browser</strong><br><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133833.png" alt="Open PHP/HTML/JS in Browser"></p>
+</li>
+<li><p><strong>在phpstudy&#x2F;WWW文件夹中新建settings.json输入如下代码</strong><br><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133894.png" alt="settings.json"></p>
+</li>
+</ol>
+<pre><code class="php">&#123;
+    &quot;open-php-html-js-in-browser.customHost&quot;: &quot;127.0.0.1&quot;,  //本地域名
+    &quot;open-php-html-js-in-browser.customUrlToOpen&quot;: &quot;http://$&#123;host&#125;/$&#123;relativeDirnameDocumentRoot&#125;/$&#123;fileBasename&#125;&quot;,
+    &quot;open-php-html-js-in-browser.documentRootFolder&quot;: &quot;D:/Software/PHPStudy/phpstudy_pro/WWW/&quot;  //站点的绝对路径
+&#125;
+</code></pre>
+<p>文件保存后，点击<strong>设置</strong>，搜索<code>@ext:PrimaFuture.open-php-html-js-in-browser</code>，选择<strong>图示复选框中的custom</strong>即可。<br><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133660.png" alt="custom">回到<strong>registerfront.php页面</strong>，单击鼠标<strong>右键</strong>，点击<strong>Open PHP&#x2F;HTML&#x2F;JS In Browser</strong><br><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133882.png" alt="单击鼠标右键"><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133221.png" alt="注册页面"></p>
+<h2 id="注册功能后端"><a href="#注册功能后端" class="headerlink" title="注册功能后端"></a>注册功能后端</h2><p>大体框架： <strong>设置数据库参数</strong> <strong>连接数据库</strong>  <strong>获取表单数据</strong> <strong>注册验证</strong> <strong>插入数据</strong>  <strong>跳转登录前端</strong></p>
+<h3 id="PhpStudy设置数据库参数"><a href="#PhpStudy设置数据库参数" class="headerlink" title="PhpStudy设置数据库参数"></a>PhpStudy设置数据库参数</h3><p><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133893.png" alt="设置数据库参数">下述步骤以数据库名称：<strong>qiushuo</strong>，用户名：<strong>qiushuo</strong>， 密码：<strong>qiushuo</strong>  为例</p>
+<h3 id="PhpStudy数据库工具新建表及字段"><a href="#PhpStudy数据库工具新建表及字段" class="headerlink" title="PhpStudy数据库工具新建表及字段"></a>PhpStudy数据库工具新建表及字段</h3><p>在<strong>软件管理</strong>中安装<strong>phpMyAdmin</strong><br><img src="https://img-blog.csdnimg.cn/63fa919e90714da7b795ba24ad830ee7.png#pic_center" alt="phpMyAdmin">依次点击<strong>首页</strong>、<strong>数据库工具</strong>、<strong>phpMyAdmin</strong><br><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133098.png" alt="phpMyAdmin">输入数据库用户名、密码后进入数据库操作页面，<strong>新建两张数据表</strong>。<br>具体方法参考<strong>管理功能</strong>模块或自行使用Google、百度学习探索。</p>
+<ol>
+<li>一张为<strong>user</strong>，包含id，name，pass字段，与用户注册登录有关；   </li>
+<li>一张为<strong>content</strong>，包含id、name，text、createtime字段，与留言实现有关。<br>user表：<br><img src="https://img-blog.csdnimg.cn/6d6813dc0be14e188068cf2e32360f1c.png#pic_center" alt="user表">content表：<br><img src="https://img-blog.csdnimg.cn/a2782b4f252c489dae8ad39f6c7e1ed0.png#pic_center" alt="content表"></li>
+</ol>
+<h3 id="功能实现"><a href="#功能实现" class="headerlink" title="功能实现"></a>功能实现</h3><p><strong>第一次提交数据时，id默认为1；此后每插入一次数据，id自增。</strong><br><strong>步骤：</strong></p>
+<ol>
+<li>在右侧的<strong>更多</strong>复选框中点击<strong>主键</strong><br><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133784.png" alt="主键"></li>
+<li><strong>执行SQL语句</strong><br>输入<code>ALTER TABLE user(表名) MODIFY COLUMN id INT AUTO_INCREMENT;</code> 点击执行<br><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133885.png" alt="自增">若页面回显如下图所示，则说明功能实现执行成功：<br><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133977.png" alt="回显"><br><strong>功能实现步骤在content表中与user表一致，不再赘述。</strong><br><strong>注意SQL语句不要写错对应的表名</strong></li>
+</ol>
+<h3 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h3><p><strong>在phpstudy&#x2F;WWW文件夹中新建conn.php</strong>，代码如下：</p>
+<pre><code class="php">&lt;?php
+$servername=&quot;localhost&quot;;
+$username=&quot;qiushuo&quot;;//替换为具体的数据库用户名
+$password=&quot;qiushuo&quot;;//替换为具体的数据库密码
+$dbname=&quot;qiushuo&quot;;//替换为具体的数据库名称
+$conn=mysqli_connect($servername,$username,$password,$dbname);//连接数据库
+mysqli_query($conn, &quot;SET NAMES UTF-8&quot;);//设置字符集
+?&gt;
+</code></pre>
+<p><strong>在phpstudy&#x2F;WWW文件夹中新建registerend.php</strong>，代码如下：</p>
+<pre><code class="php">&lt;?php
+
+$name=$_POST[&#39;name&#39;];  
+$pass=$_POST[&#39;pass&#39;];   //获取表单数据
+
+    include_once &quot;conn.php&quot;;   //运行conn文件，即连接数据库
+    $sql=&quot;SELECT FROM user WHERE name=&#39;$name&#39;&quot;;
+    $result=mysqli_query($conn,$sql);//注册时$result若能在数据库中匹配到结果，则回显用户名存在
+    $num=mysqli_num_rows($result);
+    if($num)
+    &#123;
+    echo &quot;&lt;script&gt;alert(&#39;输入的用户名已经存在,请重新输入。&#39;); history.back();&lt;/script&gt;&quot;;//history.back用于返回到上一个页面
+    exit;
+    &#125;
+    else&#123;
+    $sql=&quot;INSERT INTO user(name,pass) values(&#39;$name&#39;,&#39;$pass&#39;)&quot;;
+    $result=mysqli_query($conn,$sql);
+    &#125;
+    if($result)
+&#123;
+    echo &quot;&lt;script&gt;alert(&#39;注册成功，请登陆&#39;);location.href=&#39;loginfront.php&#39;;&lt;/script&gt;&quot;;
+    //若注册成功，则跳转到loginfront.php页面。
+&#125;
+else&#123;
+    printf(&quot;Error: %s\n&quot;, mysqli_error($conn));
+&#125;
+</code></pre>
+<h3 id="查看是否成功连接数据库"><a href="#查看是否成功连接数据库" class="headerlink" title="查看是否成功连接数据库"></a>查看是否成功连接数据库</h3><p>在conn.php中添加如下代码即可在提交后通过页面回显查看是否成功连接数据库</p>
+<pre><code class="php">if($conn)
+&#123;
+    echo&quot;&lt;script&gt;alert(&#39;连接数据库成功&#39;);&lt;/script&gt;&quot;;
+&#125;
+else&#123;
+    echo&quot;&lt;script&gt;alert(&#39;连接数据库失败&#39;);&lt;/script&gt;&quot;;
+&#125;
+</code></pre>
+<p><img src="https://img-blog.csdnimg.cn/e2de51e0a09e4e7b863e3c7f7bc77161.png#pic_center" alt="回显连接数据库">由下图前端回显可知，数据库连接成功：<img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133395.png" alt="数据库连接成功">至此，注册功能告一段落。</p>
+<h2 id="登录功能前端"><a href="#登录功能前端" class="headerlink" title="登录功能前端"></a>登录功能前端</h2><p>大体框架：<strong>用户名栏</strong> <strong>密码栏</strong> <strong>登录按钮</strong> <strong>注册页面超链接</strong><br><code>本文采用形式简单的前端页面以简化代码、降低阅读难度，读者可自行优化前端页面或采用前端框架。</code><br><strong>在phpstudy&#x2F;WWW文件夹中新建loginfront.php</strong>，代码如下：</p>
+<pre><code class="php">&lt;!DOCTYPE html&gt;
+&lt;html &gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;用户登录&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;h1&gt;用户登录&lt;/h1&gt;
+    &lt;form action=&quot;loginend.php&quot; method=&quot;post&quot; &gt;  //提交表单至loginend.php
+    用户名：&lt;input type=&quot;text&quot; name=&quot;name&quot; &gt;
+    密码：&lt;input type=&quot;password&quot; name=&quot;pass&quot;&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;登录&quot;&gt; 
+    &lt;br&gt;&lt;br&gt;
+    &lt;a href=registerfront.php&gt;&lt;h2&gt;返回注册页面&lt;/h2&gt;&lt;/a&gt;
+&lt;/form&gt;               
+    &lt;/div&gt;
+        &lt;/body&gt;
+            &lt;/html&gt;
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133507.png" alt="登录页面前端"></p>
+<h2 id="登录功能后端"><a href="#登录功能后端" class="headerlink" title="登录功能后端"></a>登录功能后端</h2><p>大体框架：<strong>连接数据库</strong> <strong>获取表单数据</strong>  <strong>登录验证</strong> <strong>跳转留言页面前端</strong><br><strong>在phpstudy&#x2F;WWW文件夹中新建loginend.php</strong>，代码如下：</p>
+<pre><code class="php">&lt;?php
+    include_once &quot;conn.php&quot;;
+if($_SERVER[&quot;REQUEST_METHOD&quot;] == &quot;POST&quot;) &#123; //规定传参方式
+    $name=$_POST[&quot;name&quot;];
+    $pass=$_POST[&quot;pass&quot;];
+    $sql=&quot;SELECT * FROM user WHERE name=&#39;$name&#39; AND pass=&#39;$pass&#39;&quot;; 
+    //使用SQL语句将参数与数据库进行匹配
+    $result=mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) == 1) &#123; 
+    //如果匹配成功，mysqli_num_rows被赋值为1 
+        echo&quot;&lt;script&gt;alert(&#39;登录成功&#39;);location.href=&#39;messagefront.php&#39;;&lt;/script&gt;&quot;;  
+        //若登录成功，则跳转到留言前端页面
+    &#125; else &#123;
+        //验证失败
+        echo&quot;&lt;script&gt;alert(&#39;登录失败,用户名或密码错误！&#39;);history.back();&lt;/script&gt;&quot;;
+    &#125;
+&#125;
+?&gt;
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133958.png" alt="登录成功"></p>
+<h2 id="留言功能前端"><a href="#留言功能前端" class="headerlink" title="留言功能前端"></a>留言功能前端</h2><p>大体框架：<strong>输入框</strong> <strong>提交按钮</strong><br><code>本文采用形式简单的前端页面以简化代码、降低阅读难度，读者可自行优化前端页面或采用前端框架。</code><br><strong>在phpstudy&#x2F;WWW文件夹中新建messagefront.php</strong>，代码如下：</p>
+<pre><code class="php">&lt;?php
+session_start();  //开启会话
+?&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;留言&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;div&gt;
+    &lt;form action=&quot;messageend.php&quot; method=&quot;post&quot; &gt;        
+    &lt;textarea name=&quot;text&quot; cols=&quot;30&quot; rows=&quot;10&quot;&gt;&lt;/textarea&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;提交&quot; &gt;
+        &lt;/form&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+    &lt;/html&gt;
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133076.png" alt="留言页面"></p>
+<h2 id="留言功能后端"><a href="#留言功能后端" class="headerlink" title="留言功能后端"></a>留言功能后端</h2><p>大体框架：<strong>session检测 获取表单数据 插入数据 遍历数据 留言输出</strong><br><strong>在phpstudy&#x2F;WWW文件夹中新建messageend.php</strong>，代码如下：</p>
+<pre><code class="php">&lt;?php
+include &#39;conn.php&#39;;	
+session_start();// 检查用户是否已登录
+if (!isset($_SESSION[&#39;name&#39;])) &#123;
+    echo &quot;&lt;script&gt;alert(&#39;请先登录&#39;);&lt;/script&gt;&quot;;
+    exit();
+&#125;
+
+    $name=$_SESSION[&#39;name&#39;];  //获取已登录的用户名
+    $text=$_POST[&#39;text&#39;];     //获取已提交的留言内容
+    $createtime=date(&#39;Y-m-d H:i:s&#39;);	  //设置留言时间
+    if(!strlen($text))
+&#123;
+    echo &quot;&lt;script&gt;alert(&#39;留言不可为空&#39;);&lt;/script&gt;&quot;;
+    exit;
+&#125;
+
+$sql=&quot;INSERT INTO content(name,text,createtime) VALUES (&#39;$name&#39;,&#39;$text&#39;, &#39;$createtime&#39;)&quot;;  
+//插入用户名、留言内容、留言时间到数据库
+$result=mysqli_query($conn,$sql);
+if($result)&#123;
+$query = &quot;SELECT * FROM content ORDER BY id DESC&quot;;
+$result = mysqli_query($conn, $query);		
+// 如果插入数据成功，则遍历留言列表并在前端输出
+while ($row = mysqli_fetch_array($result)) &#123; 
+    echo &quot;&lt;div&gt;&quot;;   //PHP与HTML包含
+    echo &quot;&lt;p&gt;&quot; . $row[&#39;text&#39;] . &quot;&lt;/p&gt;&quot;;
+    echo &quot;&lt;p&gt;&quot; . $row[&#39;name&#39;] . &quot; 发表于 &quot; . $row[&#39;createtime&#39;] . &quot;&lt;/p&gt;&quot;;
+    //在&quot;发表于&quot;左右添加空格 使回显的页面内容清晰
+    echo &quot;&lt;br&gt;&lt;br&gt;&quot;;//起留言页面的分割作用
+    echo &quot;&lt;/div&gt;&quot;;
+       &#125;
+    &#125;
+else &#123;
+echo &quot;&lt;script&gt;alert(&#39;留言失败&#39;);history.back();&lt;/script&gt;&quot;;
+    &#125;
+?&gt;
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133238.png" alt="留言显示">要使时间后的<code>000000</code>消失，可以将<strong>createtime</strong>字段中的<code>DATETIME</code>长度&#x2F;值更改为0<br><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133560.png" alt="DATETIME"><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133031.png" alt="时间长度修改"></p>
+<h2 id="登出功能前端"><a href="#登出功能前端" class="headerlink" title="登出功能前端"></a>登出功能前端</h2><p>大体框架：<strong>前端登出按钮及登出弹窗</strong><br>在<strong>messagefront.php</strong>中输入如下代码：</p>
+<pre><code class="php">&lt;form action=&quot;logout.php&quot;&gt;
+&lt;button onclick=&quot;logout()&quot;&gt;退出登录&lt;/button&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script&gt;
+  function logout() &#123;   //用axio.post()方法向登出后端文件发送一个POST请求
+    axios.post(&#39;/logout.php&#39;)
+  &#125;
+&lt;/script&gt; 
+&lt;/form&gt;
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133256.png" alt="前端"></p>
+<h2 id="登出功能后端"><a href="#登出功能后端" class="headerlink" title="登出功能后端"></a>登出功能后端</h2><p>在phpstudy&#x2F;WWW目录新建<strong>logout.php</strong>，代码如下：</p>
+<pre><code class="php">&lt;?php
+session_start(); 
+    // 在服务器端清除掉用户的登录信息
+    unset($_SESSION[&#39;name&#39;]);
+    echo &quot;&lt;script&gt;alert(&#39;登出成功&#39;);location.href=&#39;loginfront.php&#39;;&lt;/script&gt;&quot;;
+    exit;
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133350.png" alt="登出"></p>
+<h2 id="管理功能"><a href="#管理功能" class="headerlink" title="管理功能"></a>管理功能</h2><p>该项目基于Phpstudy的数据库工具phpMyAdmin，可使用该工具以Web 图形模式直接管理 MySQL 数据库。</p>
+<ul>
+<li>新建数据表<br><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133581.png" alt="新建数据表"> </li>
+<li>定义数据表中字段<img src="https://img-blog.csdnimg.cn/708cc531bc304367bee1c14e0c6635ba.png#pic_center" alt="字段"></li>
+<li>更改数据表结构<br><img src="https://img-blog.csdnimg.cn/79c96d6f94534e75b8dec3b22750c6bc.png#pic_center" alt="更改数据表结构"></li>
+<li>插入数据<br><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133628.png" alt="插入数据"></li>
+<li>执行SQL语句<br><img src="https://img-blog.csdnimg.cn/70e77240fd764e1da3b67d9a26c75513.png#pic_center" alt="执行SQL语句"></li>
+</ul>
+<p>以上功能服务于该项目的搭建，其它功能读者可自行探索。</p>
+<p><strong>至此，PHP+phpstudy留言板项目搭建教学完成，希望读者躬行实践。</strong></p>
+<h1 id="报错详析"><a href="#报错详析" class="headerlink" title="报错详析"></a>报错详析</h1><p>为了更好地定位问题，可以在执行SQL语句之前加入<strong>mysqli_ error()函数</strong>来查看错误信息，例如：</p>
+<pre><code class="php">$result = mysqli_query($conn, $sql);
+if (!$result) &#123;
+    printf(&quot;Error: %s\n&quot;, mysqli_error($conn));
+    exit();
+&#125;
+</code></pre>
+<p><strong>报错实例</strong>：</p>
+<ol>
+<li><p><code>Error: Field &#39;ID&#39; doesn&#39;t have a default value</code><br>报错原因：将ID设置为主键，但未设置为自增，导致增加数据后不能获取生成新的主键。<br><strong>解决方法</strong>：参考本文<strong>功能实现</strong>模块</p>
+</li>
+<li><p><code>Error: Duplicate entry &#39;1&#39; for key &#39;PRIMARY&#39;</code><br>报错原因：id已设置为主键，在注册模块中试图将第一个数据的id赋值为1，从而实现从1开始的自增，但该SQL插入语句存在逻辑错误。<br>如图：<br><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133196.png" alt="逻辑错误">第16行的语句使得程序在每次注册插入新的数据后，都会让该用户的id变为1，导致出现重复键。<br><strong>解决方法</strong>：删除该语句中的<code>id</code>及<code>1</code>，程序默认从id&#x3D;1开始自增。</p>
+</li>
+<li><p><code>注册不同的用户，但在phpMyAdmin中增加的都是同一个管理员账号数据</code><br>报错原因：后端文件包含了conn.php，conn.php代码如下：<br><img src="https://raw.githubusercontent.com/KeepUpIce/Typora-note/main/202305122133073.png" alt="conn.php"></p>
+</li>
+</ol>
+<p>若前端文件中定义的用户名也为<code>username：</code></p>
+<pre><code class="php">include_once &quot;conn.php&quot;;
+$sql=&quot;INSERT INTO user(username,password) values(&#39;$username&#39;,&#39;$password&#39;)&quot;;
+</code></pre>
+<p>在包含运行conn.php文件后，通过POST提交的<strong>username</strong>会被<strong>conn.php</strong>中的<strong>username</strong>覆盖，<strong>password</strong>同理。<strong>若注册后端逻辑不严谨</strong>，会造成管理员账号密码被多次提交至数据库。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>以上为PHP+phpstudy留言板项目搭建教程及报错详析实例。读者可以通过此留言板项目教程更好地认识前端与后端的区别与联系。</p>
+<p>我是<strong>秋</strong>，我们下次见。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">秋</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/05/12/PHP-phpstudy%E7%95%99%E8%A8%80%E6%9D%BF%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B%E5%8F%8A%E6%8A%A5%E9%94%99%E8%AF%A6%E6%9E%90/">http://example.com/2023/05/12/PHP-phpstudy%E7%95%99%E8%A8%80%E6%9D%BF%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B%E5%8F%8A%E6%8A%A5%E9%94%99%E8%AF%A6%E6%9E%90/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">等风来</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">秋</div><div class="author-info__description">花应怎么开 风应怎么吹</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%8F%8A%E5%B7%A5%E5%85%B7%E5%87%86%E5%A4%87"><span class="toc-number">1.</span> <span class="toc-text">基础知识及工具准备</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%EF%BC%9A%E5%9B%9B%E7%A7%8D%E8%AF%AD%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">基础知识：四种语言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PHP"><span class="toc-number">1.1.1.</span> <span class="toc-text">PHP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL"><span class="toc-number">1.1.2.</span> <span class="toc-text">SQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML"><span class="toc-number">1.1.3.</span> <span class="toc-text">HTML</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JavaScript"><span class="toc-number">1.1.4.</span> <span class="toc-text">JavaScript</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7%E5%87%86%E5%A4%87%EF%BC%9AVscode"><span class="toc-number">1.2.</span> <span class="toc-text">工具准备：Vscode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7%E5%87%86%E5%A4%87%EF%BC%9APhpStudy"><span class="toc-number">1.3.</span> <span class="toc-text">工具准备：PhpStudy</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEPHP%E7%8E%AF%E5%A2%83"><span class="toc-number">1.3.1.</span> <span class="toc-text">配置PHP环境</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA"><span class="toc-number">2.</span> <span class="toc-text">项目搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%95%99%E8%A8%80%E6%9D%BF%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97"><span class="toc-number">2.1.</span> <span class="toc-text">留言板功能模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E5%8A%9F%E8%83%BD%E5%89%8D%E7%AB%AF"><span class="toc-number">2.2.</span> <span class="toc-text">注册功能前端</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E6%89%93%E5%BC%80%E5%8A%9F%E8%83%BD%EF%BC%9A-Open-PHP-x2F-HTML-x2F-JS-In-Browser"><span class="toc-number">2.2.1.</span> <span class="toc-text">实现页面打开功能： Open PHP&#x2F;HTML&#x2F;JS In Browser</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E5%8A%9F%E8%83%BD%E5%90%8E%E7%AB%AF"><span class="toc-number">2.3.</span> <span class="toc-text">注册功能后端</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PhpStudy%E8%AE%BE%E7%BD%AE%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%82%E6%95%B0"><span class="toc-number">2.3.1.</span> <span class="toc-text">PhpStudy设置数据库参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PhpStudy%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B7%A5%E5%85%B7%E6%96%B0%E5%BB%BA%E8%A1%A8%E5%8F%8A%E5%AD%97%E6%AE%B5"><span class="toc-number">2.3.2.</span> <span class="toc-text">PhpStudy数据库工具新建表及字段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.3.3.</span> <span class="toc-text">功能实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">2.3.4.</span> <span class="toc-text">连接数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%98%AF%E5%90%A6%E6%88%90%E5%8A%9F%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">2.3.5.</span> <span class="toc-text">查看是否成功连接数据库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD%E5%89%8D%E7%AB%AF"><span class="toc-number">2.4.</span> <span class="toc-text">登录功能前端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD%E5%90%8E%E7%AB%AF"><span class="toc-number">2.5.</span> <span class="toc-text">登录功能后端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%95%99%E8%A8%80%E5%8A%9F%E8%83%BD%E5%89%8D%E7%AB%AF"><span class="toc-number">2.6.</span> <span class="toc-text">留言功能前端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%95%99%E8%A8%80%E5%8A%9F%E8%83%BD%E5%90%8E%E7%AB%AF"><span class="toc-number">2.7.</span> <span class="toc-text">留言功能后端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%99%BB%E5%87%BA%E5%8A%9F%E8%83%BD%E5%89%8D%E7%AB%AF"><span class="toc-number">2.8.</span> <span class="toc-text">登出功能前端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%99%BB%E5%87%BA%E5%8A%9F%E8%83%BD%E5%90%8E%E7%AB%AF"><span class="toc-number">2.9.</span> <span class="toc-text">登出功能后端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%A1%E7%90%86%E5%8A%9F%E8%83%BD"><span class="toc-number">2.10.</span> <span class="toc-text">管理功能</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8A%A5%E9%94%99%E8%AF%A6%E6%9E%90"><span class="toc-number">3.</span> <span class="toc-text">报错详析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/05/12/PHP-phpstudy%E7%95%99%E8%A8%80%E6%9D%BF%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B%E5%8F%8A%E6%8A%A5%E9%94%99%E8%AF%A6%E6%9E%90/" title="PHP-phpstudy留言板项目搭建教程及报错详析">PHP-phpstudy留言板项目搭建教程及报错详析</a><time datetime="2023-05-12T13:27:02.000Z" title="发表于 2023-05-12 21:27:02">2023-05-12</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By 秋</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
